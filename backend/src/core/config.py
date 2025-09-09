@@ -8,7 +8,8 @@ class Settings(BaseSettings):
     DEBUG: bool = False
     
     # 数据库配置
-    DATABASE_URL: str
+    # mysql+<driver>://<user>:<password>@<host>[:<port>]/<database_name>
+    DATABASE_URL: str=“"mysql+pymysql://root:mypassword@localhost:3307/mydatabase"”
     DATABASE_TEST_URL: Optional[str] = None
     
     # 安全配置

@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
 from core.config import settings
-from api.endpoints import files, qa, auth
+from api.endpoints import files
 
 app = FastAPI(
     title="PDF QA API",
@@ -13,7 +13,12 @@ app = FastAPI(
 # CORS 配置
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080"],
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:3000",
+        "http://localhost:8080",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -21,8 +26,7 @@ app.add_middleware(
 
 # 注册路由
 app.include_router(files.router)
-# app.include_router(qa.router)
-# app.include_router(auth.router)
+# 预留：其他路由
 
 @app.get("/")
 async def root():
