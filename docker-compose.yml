@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  # MySQL 数据库服务
+  mysql-db:
+    image: mysql:8.0
+    container_name: chatwithyu-mysql-container
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root123456d
+      MYSQL_DATABASE: chat_with_yu_database
+    ports:
+      - "3307:3306" # 映射到主机端口，方便本地工具连接
+    volumes:
+      - ./mysql/mysql_data:/var/lib/mysql
+      - ./mysql/mysql-config:/etc/mysql/conf.d
+    networks:
+      - app-network
+    healthcheck: # 添加健康检查，确保服务完全启动后再被依赖
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+
+# 定义数据卷
+volumes:
+  mysql_data:
+    name: my-mysql-data
+
+# 定义网络（MySQL和Redis将在同一网络内，可以通过服务名互相访问）
+networks:
+  app-network:
+    name: my-app-net
+

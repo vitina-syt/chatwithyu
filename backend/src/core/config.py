@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     
     # 数据库配置
     # mysql+<driver>://<user>:<password>@<host>[:<port>]/<database_name>
-    DATABASE_URL: str=“"mysql+pymysql://root:mypassword@localhost:3307/mydatabase"”
+    DATABASE_URL: str="mysql+pymysql://root:root123456d@localhost:3307/chat_with_yu_database"
     DATABASE_TEST_URL: Optional[str] = None
     
     # 安全配置
